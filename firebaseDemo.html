@@ -1,0 +1,110 @@
+<html>
+
+<head>
+    
+</head>
+
+<body>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <!-- <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script> -->
+     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script> 
+     <script src="https://cdn.firebase.com/libs/firebaseui/2.1.1/firebaseui.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+    <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyBzqrOexq43JnY1wRDe1O_3dyjfH3LYhjo",
+        authDomain: "fir-demo-ba0f0.firebaseapp.com",
+        databaseURL: "https://fir-demo-ba0f0.firebaseio.com",
+        projectId: "fir-demo-ba0f0",
+        storageBucket: "fir-demo-ba0f0.appspot.com",
+        messagingSenderId: "959274970115",
+        appId: "1:959274970115:web:77d730a558e2c87b"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+
+  /*  window.fbAsyncInit = function() {
+        FB.init({
+            appId: '642570546190035',
+            xfbml: true,
+            version: 'v2.6'
+        });
+    };
+
+    (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) { return; }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+*/
+
+   
+
+    function facebookSignin() {
+         var provider = new firebase.auth.FacebookAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+            .then(function(result) {
+                console.log("result", result);
+                var token = result.credential.accessToken;
+                var user = result.user;
+
+
+                console.log("token", token);
+                console.log("user", user.providerData[0]);
+            }).catch(function(error) {
+                console.log(error.code);
+                console.log(error.message);
+            });
+    }
+
+    function facebookSignout() {
+        firebase.auth().signOut()
+            .then(function(data) {
+                console.log('Signout successful!', data)
+            }, function(error) {
+                console.log('Signout failed')
+            });
+    }
+
+    function googleSignin() {
+         var provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider)
+            .then(function(result) {
+                console.log("result", result);
+                var token = result.credential.accessToken;
+                var user = result.user;
+
+
+                console.log("token", token);
+                console.log("user", user.providerData[0]);
+            }).catch(function(error) {
+                console.log(error.code);
+                console.log(error.message);
+            });
+    }
+
+    function googleSignout() {
+        firebase.auth().signOut()
+            .then(function(data) {
+                console.log('Signout successful!', data)
+            }, function(error) {
+                console.log('Signout failed')
+            });
+    }
+
+    </script>
+    <button onclick="facebookSignin()">Facebook Signin</button>
+    <button onclick="facebookSignout()">Facebook Signout</button></br></br></br>
+
+    <button onclick="googleSignin()">Google Signin</button>
+    <button onclick="googleSignout()">Google Signout</button>
+
+</body>
+
+</html>
